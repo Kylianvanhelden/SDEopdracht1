@@ -67,8 +67,27 @@ export default class Battle extends Scene {
     this.canvas = canvas;
     this.checkpoint = checkpoint;
 
-    this.spellList.push(new Flame(), new FireBall(), new HellFire(), new MaxMeteor(), new Zap(), new ThunderStorm(), new ThousandVoltSmash(), new Railgun(), new SnowBall(), new IcicleClash(), new SnowStorm(), new EverlastingWinter());
-    this.spellList.push(new FlameReverse(), new MaxMeteorReverse(), new ZapReverse(), new RailgunReverse(), new SnowBallReverse(), new IcicleClashReverse(), new SnowStormReverse(), new EverlastingWinterReverse());
+    this.spellList.push(new Flame());
+    this.spellList.push(new FireBall());
+    this.spellList.push(new HellFire());
+    this.spellList.push(new MaxMeteor());
+    this.spellList.push(new Zap());
+    this.spellList.push(new ThunderStorm());
+    this.spellList.push(new ThousandVoltSmash());
+    this.spellList.push(new Railgun());
+    this.spellList.push(new SnowBall());
+    this.spellList.push(new IcicleClash());
+    this.spellList.push(new SnowStorm());
+    this.spellList.push(new EverlastingWinter());
+
+    this.spellList.push(new FlameReverse());
+    this.spellList.push(new MaxMeteorReverse());
+    this.spellList.push(new ZapReverse());
+    this.spellList.push(new RailgunReverse());
+    this.spellList.push(new SnowBallReverse());
+    this.spellList.push(new IcicleClashReverse());
+    this.spellList.push(new SnowStormReverse());
+    this.spellList.push(new EverlastingWinterReverse());
 
     this.alive = true;
     this.battleWon = false;
@@ -90,8 +109,15 @@ export default class Battle extends Scene {
       this.enemy = new Principle();
     }
 
-    this.spells.push(this.spellList[q], this.spellList[w], this.spellList[a], this.spellList[s]);
-    this.enemySpells.push(this.spellList[this.enemy.getSpell(0)], this.spellList[this.enemy.getSpell(1)], this.spellList[this.enemy.getSpell(2)], this.spellList[this.enemy.getSpell(3)]);
+    this.spells.push(this.spellList[q]);
+    this.spells.push(this.spellList[w]);
+    this.spells.push(this.spellList[a]);
+    this.spells.push(this.spellList[s]);
+
+    this.enemySpells.push(this.spellList[this.enemy.getSpell(0)]);
+    this.enemySpells.push(this.spellList[this.enemy.getSpell(1)]);
+    this.enemySpells.push(this.spellList[this.enemy.getSpell(2)]);
+    this.enemySpells.push(this.spellList[this.enemy.getSpell(3)]);
   }
 
   /**
@@ -150,29 +176,79 @@ export default class Battle extends Scene {
     if (this.player.getHealth() <= 0) {
       this.alive = false;
     }
-    for (let i: number = 0; i < this.spells.length; i++) {
-      if (this.spells[i].getSpell() === true) {
-        this.spells[i].update(elapsed);
-      } else if (this.spells[i].getOver() === 1) {
-        this.spells[i].spelNotOver();
-        if (this.enemy.getElementalType() === 'ice' && this.spells[i].getElement() === 'fire') {
-          this.enemy.setHealth(this.spells[i].getDamage() * 2);
-        } else if (this.enemy.getElementalType() === 'ice' && this.spells[i].getElement() === 'ice') {
-          this.enemy.setHealth(this.spells[i].getDamage() / 2);
-        } else {
-          this.enemy.setHealth(this.spells[i].getDamage());
-        }
-        this.enemyTurn = true;
+    if (this.spells[0].getSpell() === true) {
+      this.spells[0].update(elapsed);
+    } else if (this.spells[0].getOver() === 1) {
+      this.spells[0].spelNotOver();
+      if (this.enemy.getElementalType() === 'ice') {
+        this.enemy.setHealth(this.spells[0].getDamage() * 2);
+      } else {
+        this.enemy.setHealth(this.spells[0].getDamage());
       }
+      this.enemyTurn = true;
     }
-    for (let i: number = 0; i < this.enemySpells.length; i++) {
-      if (this.enemySpells[i].getSpell() === true) {
-        this.enemySpells[i].update(elapsed);
-      } else if (this.enemySpells[i].getOver() === 1) {
-        this.enemySpells[i].spelNotOver();
-        this.player.setHealth(this.enemySpells[i].getDamage());
-        this.yourTurn = true;
+    if (this.spells[1].getSpell() === true) {
+      this.spells[1].update(elapsed);
+    } else if (this.spells[1].getOver() === 1) {
+      this.spells[1].spelNotOver();
+      this.enemy.setHealth(this.spells[1].getDamage());
+      this.enemyTurn = true;
+    }
+    if (this.spells[2].getSpell() === true) {
+      this.spells[2].update(elapsed);
+    } else if (this.spells[2].getOver() === 1) {
+      this.spells[2].spelNotOver();
+      if (this.enemy.getElementalType() === 'ice') {
+        this.enemy.setHealth(Math.round(this.spells[2].getDamage() / 2));
+      } else {
+        this.enemy.setHealth(this.spells[2].getDamage());
       }
+      this.enemyTurn = true;
+    }
+    if (this.spells[3].getSpell() === true) {
+      this.spells[3].update(elapsed);
+    } else if (this.spells[3].getOver() === 1) {
+      this.spells[3].spelNotOver();
+      if (this.enemy.getElementalType() === 'ice') {
+        if (this.spells[3].getElement() === 'fire') {
+          this.enemy.setHealth(this.spells[3].getDamage() * 2);
+        } else if (this.spells[3].getElement() === 'ice') {
+          this.enemy.setHealth(Math.round(this.spells[3].getDamage() / 2));
+        } else {
+          this.enemy.setHealth(this.spells[3].getDamage());
+        }
+      } else {
+        this.enemy.setHealth(this.spells[3].getDamage());
+      }
+      this.enemyTurn = true;
+    }
+    if (this.enemySpells[0].getSpell() === true) {
+      this.enemySpells[0].update(elapsed);
+    } else if (this.enemySpells[0].getOver() === 1) {
+      this.enemySpells[0].spelNotOver();
+      this.player.setHealth(this.enemySpells[0].getDamage());
+      this.yourTurn = true;
+    }
+    if (this.enemySpells[1].getSpell() === true) {
+      this.enemySpells[1].update(elapsed);
+    } else if (this.enemySpells[1].getOver() === 1) {
+      this.enemySpells[1].spelNotOver();
+      this.player.setHealth(this.enemySpells[1].getDamage());
+      this.yourTurn = true;
+    }
+    if (this.enemySpells[2].getSpell() === true) {
+      this.enemySpells[2].update(elapsed);
+    } else if (this.enemySpells[2].getOver() === 1) {
+      this.enemySpells[2].spelNotOver();
+      this.player.setHealth(this.enemySpells[2].getDamage());
+      this.yourTurn = true;
+    }
+    if (this.enemySpells[3].getSpell() === true) {
+      this.enemySpells[3].update(elapsed);
+    } else if (this.enemySpells[3].getOver() === 1) {
+      this.enemySpells[3].spelNotOver();
+      this.player.setHealth(this.enemySpells[3].getDamage());
+      this.yourTurn = true;
     }
   }
 
@@ -208,19 +284,80 @@ export default class Battle extends Scene {
     }
     if (this.yourTurn) {
       this.battleUI.playerTurn(canvas);
+    } else if (this.languageDutch) {
+      if (this.spells[0].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[0].getDutchName());
+      }
+      if (this.spells[1].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[1].getDutchName());
+      }
+      if (this.spells[2].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[2].getDutchName());
+      }
+      if (this.spells[3].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[3].getDutchName());
+      }
+      if (this.enemySpells[0].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[0].getDutchName());
+      }
+      if (this.enemySpells[1].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[1].getDutchName());
+      }
+      if (this.enemySpells[2].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[2].getDutchName());
+      }
+      if (this.enemySpells[3].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[3].getDutchName());
+      }
     } else {
-      for (let i: number = 0; i < this.spells.length; i++) {
-        if (this.spells[i].getSpell() === true) {
-          this.battleUI.playerUses(canvas, this.spells[i]);
-          this.spells[i].render(canvas);
-        }
+      if (this.spells[0].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[0].getName());
       }
-      for (let i: number = 0; i < this.enemySpells.length; i++) {
-        if (this.enemySpells[i].getSpell() === true) {
-          this.battleUI.enemyUses(canvas, this.enemySpells[i]);
-          this.enemySpells[i].render(canvas);
-        }
+      if (this.spells[1].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[1].getName());
       }
+      if (this.spells[2].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[2].getName());
+      }
+      if (this.spells[3].getSpell() === true) {
+        this.battleUI.playerUses(canvas, this.spells[3].getName());
+      }
+      if (this.enemySpells[0].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[0].getName());
+      }
+      if (this.enemySpells[1].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[1].getName());
+      }
+      if (this.enemySpells[2].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[2].getName());
+      }
+      if (this.enemySpells[3].getSpell() === true) {
+        this.battleUI.enemyUses(canvas, this.enemySpells[3].getName());
+      }
+    }
+    if (this.spells[0].getSpell() === true) {
+      this.spells[0].render(canvas);
+    }
+    if (this.spells[1].getSpell() === true) {
+      this.spells[1].render(canvas);
+    }
+    if (this.spells[2].getSpell() === true) {
+      this.spells[2].render(canvas);
+    }
+    if (this.spells[3].getSpell() === true) {
+      this.spells[3].render(canvas);
+    }
+    if (this.enemySpells[0].getSpell() === true) {
+      this.enemySpells[0].render(canvas);
+    }
+    if (this.enemySpells[1].getSpell() === true) {
+      this.enemySpells[1].render(canvas);
+    }
+    if (this.enemySpells[2].getSpell() === true) {
+      this.enemySpells[2].render(canvas);
+    }
+    if (this.enemySpells[3].getSpell() === true) {
+      this.enemySpells[3].render(canvas);
     }
     this.player.render(canvas);
     this.enemy.render(canvas);

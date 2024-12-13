@@ -163,11 +163,11 @@ export default class BattleUI {
    * @param canvas the screen
    * @param spell the spell which is used
    */
-  public playerUses(canvas: HTMLCanvasElement, spell: Spells): void {
+  public playerUses(canvas: HTMLCanvasElement, spell: string): void {
     if (this.language) {
-      CanvasRenderer.writeText(canvas, `${this.player.getDutchName()} Gebruikt ${spell.getDutchName()}`, 20, (canvas.height - 135), 'left', 'Arial', 41.5, 'white');
+      CanvasRenderer.writeText(canvas, `${this.player.getDutchName()} Gebruikt ${spell}`, 20, (canvas.height - 135), 'left', 'Arial', 41.5, 'white');
     } else {
-      CanvasRenderer.writeText(canvas, `${this.player.getName()} Used ${spell.getName()}`, 20, (canvas.height - 135), 'left', 'Arial', 42.5, 'white');
+      CanvasRenderer.writeText(canvas, `${this.player.getName()} Used ${spell}`, 20, (canvas.height - 135), 'left', 'Arial', 42.5, 'white');
     }
   }
 
@@ -176,11 +176,11 @@ export default class BattleUI {
    * @param canvas the screen
    * @param spell the spell which is used
    */
-  public enemyUses(canvas: HTMLCanvasElement, spell: Spells): void {
+  public enemyUses(canvas: HTMLCanvasElement, spell: string): void {
     if (this.language) {
-      CanvasRenderer.writeText(canvas, `${this.enemy.getDutchName()} Gebruikt ${spell.getDutchName()}`, 20, (canvas.height - 135), 'left', 'Arial', 41.5, 'white');
+      CanvasRenderer.writeText(canvas, `${this.enemy.getDutchName()} Gebruikt ${spell}`, 20, (canvas.height - 135), 'left', 'Arial', 41.5, 'white');
     } else {
-      CanvasRenderer.writeText(canvas, `${this.enemy.getName()} Used ${spell.getName()}`, 20, (canvas.height - 135), 'left', 'Arial', 42.5, 'white');
+      CanvasRenderer.writeText(canvas, `${this.enemy.getName()} Used ${spell}`, 20, (canvas.height - 135), 'left', 'Arial', 42.5, 'white');
     }
   }
 }
